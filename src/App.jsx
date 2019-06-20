@@ -12,19 +12,19 @@ import './App.scss';
 
 
 const AsyncComponent = Loadable({
-    loader: () => import(/* webpackChunkName: "myNamedChunk" */ './SomeComponent'),
+    loader: () => import(/* webpackChunkName: "SomeComponent" */ './components/SomeComponent'),
     loading: () => <div>loading...</div>,
-    modules: ['myNamedChunk'],
+    modules: ['SomeComponent'],
 });
 
 const AsyncPageDefault = Loadable({
-    loader: () => import(/* webpackChunkName: "pageDefault" */ './PageDefault'),
+    loader: () => import(/* webpackChunkName: "pageDefault" */ './components/PageDefault'),
     loading: () => <div>loading page...</div>,
     modules: ['pageDefault'],
 });
 
 const AsyncPageAnother = Loadable({
-    loader: () => import(/* webpackChunkName: "pageAnother" */ './PageAnother'),
+    loader: () => import(/* webpackChunkName: "pageAnother" */ './components/PageAnother'),
     loading: () => <div>loading another page...</div>,
     modules: ['pageAnother'],
 });
