@@ -53,13 +53,12 @@ const init = async () => {
       path:'/another',
       handler: async (request, reply) => {
         return reply.redirect('/');
-        // const store = configureStore();
-        // const htmlToRender = await serverRenderer(store)(request, reply);
-        // if(!htmlToRender){
-        //   console.log(`Error occured!`);
-        // }
-        // console.log(`${JSON.stringify(request.params)} - ${server.info.uri}`);
-        // return htmlToRender
+      }
+  }, {
+      method: 'GET',
+      path:'/cart',
+      handler: async (request, reply) => {
+        return reply.redirect('/');
       }
   }]);
 

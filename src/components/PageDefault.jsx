@@ -1,5 +1,9 @@
 import React from 'react';
+import CartCounterList from './CartCounter';
 
 export default () => (
-    <div>This is for the main page.</div>
+    <React.Fragment>
+      <div>This is for the main page.</div>
+      <CartCounterList />
+    </React.Fragment>
 );
