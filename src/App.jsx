@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import Loadable from 'react-loadable';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Route, Switch, NavLink } from 'react-router-dom';
 
@@ -29,55 +29,44 @@ const AsyncPageAnother = Loadable({
     modules: ['pageAnother'],
 });
 
-class App extends Component {
-    componentDidMount() {
-        if(!this.props.message) {
-            this.props.updateMessage(`This is client side rendering!`);
-        }
-    }
+const App = () => {
+  const message = useSelector((state) => state.app.message);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setMessage(`This is client side rendering!`));
+  }, []);
 
-    render() {
-        return (
-            <div className="App">
-                <header className="App-header">
-                    <img src="./logo.svg" className="App-logo" alt="logo"/>
-                    <h1 className="App-title">Welcome to React</h1>
-                </header>
-                <div className="App-intro">
-                    <h2>Part 1: Async component</h2>
-                    <AsyncComponent />
+  return (
+        <div className="App">
+            <header className="App-header">
+                <img src="./logo.svg" className="App-logo" alt="logo"/>
+                <h1 className="App-title">Welcome to React</h1>
+            </header>
+            <div className="App-intro">
+                <h2>Part 1: Async component</h2>
+                <AsyncComponent />
 
-                    <hr />
+                <hr />
 
-                    <h2>Part 2: Redux store</h2>
-                    <p>
-                        Redux: { this.props.message }
-                    </p>
+                <h2>Part 2: Redux store</h2>
+                <p>
+                    Redux: { message }
+                </p>
 
-                    <hr />
+                <hr />
 
-                    <h2>Part 3: React router</h2>
-                    <nav>
-                        <NavLink to="/" exact activeClassName="active">Home</NavLink>
-                        <NavLink to="/another" activeClassName="active">Another page</NavLink>
-                    </nav>
-                    <Switch>
-                        <Route path="/" exact component={AsyncPageDefault} />
-                        <Route path="/another" component={AsyncPageAnother} />
-                    </Switch>
-                </div>
+                <h2>Part 3: React router</h2>
+                <nav>
+                    <NavLink to="/" exact activeClassName="active">Home</NavLink>
+                    <NavLink to="/another" activeClassName="active">Another page</NavLink>
+                </nav>
+                <Switch>
+                    <Route path="/" exact component={AsyncPageDefault} />
+                    <Route path="/another" component={AsyncPageAnother} />
+                </Switch>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
-export default withRouter(
-    connect(
-        ({ app }) => ({
-            message: app.message,
-        }),
-        dispatch => ({
-            updateMessage: (messageText) => dispatch(setMessage(messageText)),
-        })
-    )(App)
-);
+export default withRouter(App);

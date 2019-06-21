@@ -18,7 +18,7 @@ const CartCounterList = () => {
       quantity: 30,
     };
     dispatch(listItemsAction(updateCartJSON));
-  })
+  }, [])
 
   return (
     <div className="cart-items-sections">
