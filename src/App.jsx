@@ -29,6 +29,22 @@ const AsyncPageAnother = Loadable({
     modules: ['pageAnother'],
 });
 
+const AsyncHeader = Loadable({
+    loader: () => import(/* webpackChunkName: "Header" */ './components/layout/Header'),
+    loading: () => <div>loading header section...</div>,
+    modules: ['Header'],
+});
+const AsyncLeftPanel = Loadable({
+  loader: () => import(/* webpackChunkName: "LeftPanel" */ './components/layout/LeftPanel'),
+  loading: () => <div>loading left-panel section...</div>,
+  modules: ['LeftPanel'],
+});
+const AsyncMainPanel = Loadable({
+  loader: () => import(/* webpackChunkName: "MainPanel" */ './components/layout/MainPanel'),
+  loading: () => <div>loading main-contant section...</div>,
+  modules: ['MainPanel'],
+});
+
 const App = () => {
   const message = useSelector((state) => state.app.message);
   const dispatch = useDispatch();
@@ -37,35 +53,48 @@ const App = () => {
   }, []);
 
   return (
-        <div className="App">
-            <header className="App-header">
-                <img src="./logo.svg" className="App-logo" alt="logo"/>
-                <h1 className="App-title">Welcome to React</h1>
-            </header>
-            <div className="App-intro">
-                <h2>Part 1: Async component</h2>
-                <AsyncComponent />
+        <React.Fragment>
+            <AsyncHeader />
+            <main role="main">
+              <div className="album py-5 bg-light">
+                <div className="container">
+                  <div class="row">
+                    <div class="col-3" role="left panel">
+                      <AsyncLeftPanel />
+                    </div>
+                    <div class="col-9" role="Main section">
+                      <AsyncMainPanel />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div className="App-intro">
+                      <h2>Part 1: Async component</h2>
+                      <AsyncComponent />
 
-                <hr />
+                      <hr />
 
-                <h2>Part 2: Redux store</h2>
-                <p>
-                    Redux: { message }
-                </p>
+                      <h2>Part 2: Redux store</h2>
+                      <p>
+                          Redux: { message }
+                      </p>
 
-                <hr />
+                      <hr />
 
-                <h2>Part 3: React router</h2>
-                <nav>
-                    <NavLink to="/" exact activeClassName="active">Home</NavLink>
-                    <NavLink to="/another" activeClassName="active">Another page</NavLink>
-                </nav>
-                <Switch>
-                    <Route path="/" exact component={AsyncPageDefault} />
-                    <Route path="/another" component={AsyncPageAnother} />
-                </Switch>
-            </div>
-        </div>
+                      <h2>Part 3: React router</h2>
+                      <nav>
+                          <NavLink to="/" exact activeClassName="active">Home</NavLink>
+                          <NavLink to="/another" activeClassName="active">Another page</NavLink>
+                      </nav>
+                      <Switch>
+                          <Route path="/" exact component={AsyncPageDefault} />
+                          <Route path="/another" component={AsyncPageAnother} />
+                      </Switch>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+        </React.Fragment>
     );
 };
 
